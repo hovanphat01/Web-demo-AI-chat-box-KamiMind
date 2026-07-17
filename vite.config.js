@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] })
   ],
-  base: '/Web-demo-AI-chat-box-KamiMind/',
+  base: '/ai-lab/',
 })
