@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* HỆ MÀU LIGHT MODE - ĐỒNG BỘ NỀN TRẮNG */
+  --bg-primary:     #ffffff;
+  --bg-secondary:   #f8fafc;
+  --bg-card:        #ffffff;
+  --bg-card-hover:  #f1f5f9;
+  --bg-input:       #f8fafc;
+  --border:         #e2e8f0;
+  --border-active:  #6366f1;
+
+  /* Brand gradient phối hợp màu sáng */
+  --grad-1: #818cf8;
+  --grad-2: #6366f1;
+  --grad-3: #38bdf8;
+  --brand-gradient: linear-gradient(135deg, var(--grad-1), var(--grad-2));
+  --brand-gradient-soft: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(56, 189, 248, 0.04));
+
+  /* Text */
+  --text-primary:   #0f172a;
+  --text-secondary: #475569;
+  --text-muted:     #94a3b8;
+
+  /* UI Setup */
+  --radius-sm:  8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --shadow:    0 10px 30px rgba(0,0,0,0.06);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+  --transition: 0.22s cubic-bezier(.4,0,.2,1);
+  --sidebar-w: 300px;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+/* App Layout */
+.app-wrapper {
+  display: flex;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  height: 100%;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  transition: transform var(--transition);
+}
+
+.sidebar-brand { padding: 22px 20px 18px; border-bottom: 1px solid var(--border); }
+.brand-logo { display: flex; align-items: center; gap: 10px; }
+.brand-icon {
+  width: 38px; height: 38px;
+  background: var(--brand-gradient);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.brand-name {
+  font-size: 20px; font-weight: 700;
+  background: var(--brand-gradient);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.brand-tagline { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
+.btn-new-chat {
+  margin: 14px 16px; padding: 10px 16px;
+  background: var(--brand-gradient-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--grad-2); font-size: 13px; font-weight: 500; cursor: pointer;
+  display: flex; align-items: center; gap: 8px; transition: all var(--transition);
+}
+.btn-new-chat:hover { background: rgba(99, 102, 241, 0.15); border-color: var(--border-active); }
+
+.sidebar-body { flex: 1; overflow-y: auto; padding: 10px; }
+.sidebar-footer { padding: 14px 16px; border-top: 1px solid var(--border); }
+.footer-note { font-size: 11px; color: var(--text-muted); }
+
+/* Chat Area */
+.chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f1f5f9; /* Màu xám đá nhạt (Slate 100), giúp giảm độ chói tối đa */
+  height: 100vh;
+  overflow: hidden;
+}
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0; /* Viền xám nhạt */
+}
+.chat-header-left { display: flex; align-items: center; gap: 12px; }
+.header-title { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+.header-sub { font-size: 12px; color: var(--text-muted); }
+.status-indicator { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #10b981; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; }
+
+.btn-menu {
+  display: none; background: none; border: none; color: var(--text-secondary); cursor: pointer;
+}
+
+/* Iframe Container chiếm trọn khu vực chat để không bị lộ vết nhúng */ 
+.iframe-container {
+  flex: 1;
+  padding: 24px; /* Tạo khoảng trống đệm xung quanh */
+  background-color: #f1f5f9; /* Đồng bộ nền xám dịu mắt */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.iframe-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.chat-iframe {
+  width: 100%;
+  max-width: 1200px; /* Giới hạn chiều rộng để trông cân đối hơn trên màn hình lớn */
+  height: 100%;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px; /* Bo tròn góc một chút cho hiện đại */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); /* Đổ bóng nhẹ */
+  background-color: #ffffff; /* Bản thân iframe màu trắng sẽ nổi bật trên nền xám nhạt */
+}
+
+/* Responsive Mobile overlay */
+.sidebar-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 99;
+}
+.sidebar-overlay.active { display: block; }
+
+/* Tắt các hiệu ứng hover lựa chọn trên câu hỏi tĩnh */
+.question-list-static {
+  list-style: none;
+  padding-left: 12px;
+  margin: 8px 0 16px 0;
+}
+
+.question-item-static {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 8px;
+  color: #9ca3af; /* Màu chữ xám nhẹ tinh tế */
+  font-size: 13.5px;
+  line-height: 1.5;
+  user-select: text; /* Cho phép sinh viên bôi đen để copy câu hỏi nếu cần */
+}
+
+.bullet-dot {
+  color: #4b5563;
+}
+
+.cat-text-label {
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: #9ca3af;
+  flex-grow: 1;
+}
+
+.cat-chevron {
+  font-size: 9px;
+  color: #4b5563;
+}
+
+@media (max-width: 768px) {
+  .sidebar { position: fixed; left: 0; top: 0; bottom: 0; transform: translateX(-100%); z-index: 100; }
+  .sidebar.open { transform: translateX(0); box-shadow: var(--shadow); }
+  .btn-menu { display: flex; }
+}
